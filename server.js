@@ -13,9 +13,11 @@ app.get('/api/whoami', function(req, res){
   console.log(req.headers);
   var userAgent = req.headers["user-agent"]
   var os = userAgent.substring(userAgent.indexOf('(')+1, userAgent.indexOf(')'))
+  var langList = req.headers["accept-language"];
+  var lang = langList.substring(0, langList.indexOf(','));
   var response = {
     ipaddress: req.ip,
-    languange: req.headers["accept-language"],
+    languange: lang,
     software: os
   }
   res.json(response)
