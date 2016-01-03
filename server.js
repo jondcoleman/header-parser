@@ -11,12 +11,13 @@ app.get('/', function(req, res){
 
 app.get('/api/whoami', function(req, res){
   console.log(req.ip);
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   var userAgent = req.headers["user-agent"]
   var os = userAgent.substring(userAgent.indexOf('(')+1, userAgent.indexOf(')'))
   var langList = req.headers["accept-language"];
   var lang = langList.substring(0, langList.indexOf(','));
   var response = {
-    ipaddress: req.ips,
+    ipaddress: ip,
     languange: lang,
     software: os
   }
